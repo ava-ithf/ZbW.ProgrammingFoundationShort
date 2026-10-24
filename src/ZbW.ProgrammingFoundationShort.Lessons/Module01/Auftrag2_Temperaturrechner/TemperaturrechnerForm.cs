@@ -18,6 +18,9 @@ public partial class TemperaturrechnerForm : Form
 {
   // TODO 1: Konstante für den absoluten Nullpunkt definieren
   //         private const double AbsoluteZero = -273.15;
+  const double AbsoluteZero = -273.15;
+  double celsius = 0;
+  double fahrenheit = 0;
 
   public TemperaturrechnerForm()
   {
@@ -30,8 +33,28 @@ public partial class TemperaturrechnerForm : Form
     // TODO 2: Wert aus TxtCelsius lesen (double.TryParse)
     //         Bei ungültiger Eingabe: MessageBox anzeigen und return
 
-    // TODO 3: Prüfen ob Wert < AbsoluteZero
-    //         → MessageBox mit Warnung, aber weiter rechnen
+    if (!double.TryParse(TxtCelsius.Text, out double eingabecelsius))
+    {
+      MessageBox.Show("Bitte eine Zahl eingeben.", "Ungültige Eingabe");
+    }
+    else
+    {
+      // TODO 3: Prüfen ob Wert < AbsoluteZero
+      //         → MessageBox mit Warnung, aber weiter rechnen
+      if (celsius < AbsoluteZero)
+      {
+        MessageBox.Show("Zahl ist tiefer als Absolute Null.", "Warnung");
+      }
+
+      celsius = eingabecelsius;
+
+      fahrenheit = celsius * 9.0 / 5.0 + 32;
+
+      TxtFahrenheit.Text = fahrenheit.ToString();
+      
+    }
+
+
 
     // TODO 4: Formel anwenden: fahrenheit = celsius * 9.0 / 5.0 + 32
 
@@ -41,6 +64,28 @@ public partial class TemperaturrechnerForm : Form
   // ── Fahrenheit → Celsius ────────────────────────────────────
   private void CmdFahrenheitToCelsius_Click(object sender, EventArgs e)
   {
+
+    if (!double.TryParse(TxtFahrenheit.Text, out double eingabefahrenheit))
+    {
+      MessageBox.Show("Bitte eine Zahl eingeben.", "Ungültige Eingabe");
+    }
+    else
+    {
+      // TODO 3: Prüfen ob Wert < AbsoluteZero
+      //         → MessageBox mit Warnung, aber weiter rechnen
+
+      fahrenheit = eingabefahrenheit;
+
+      celsius = (fahrenheit - 32) * 5.0 / 9.0;
+
+      TxtCelsius.Text = celsius.ToString();
+
+      if (celsius < AbsoluteZero)
+      {
+        MessageBox.Show("Zahl ist tiefer als Absolute Null.", "Warnung");
+      }
+
+    }
     // TODO 6: Wert aus TxtFahrenheit lesen (double.TryParse)
     //         Bei ungültiger Eingabe: MessageBox anzeigen und return
 
