@@ -22,10 +22,43 @@ public partial class NotenrechnerForm : Form
     InitializeComponent();
   }
 
+  int note = 0;
+
   private void CmdBerechnen_Click(object sender, EventArgs e)
   {
     // TODO 1: Punkte aus TxtPunkte lesen (int.TryParse)
     //         Bei ungültiger Eingabe: MessageBox anzeigen und return
+
+    if (int.TryParse(TxtPunkte.Text, out int eingabeNote))
+    {
+      note = eingabeNote;
+      if ((note < 0) || (note > 100)) {
+        MessageBox.Show("Bitte eine gültige Zahl eingeben.", "Ungültige Eingabe");
+      }
+      else
+      {
+        if ((note < 101) && (note > 89))
+        {
+          MessageBox.Show("Note 6 «sehr gut»", "Note");
+        }
+        else if ((note < 90) && (note > 74))
+        {
+          MessageBox.Show("Note 5 «gut»", "Note");
+        }
+        else if ((note < 75) && (note > 59))
+        {
+          MessageBox.Show("Note 4 «genügend»", "Note");
+        }
+        else if (note < 60)
+        {
+          MessageBox.Show("Note 3 «ungenügend»", "Note");
+        }
+      }
+    }
+    else
+    {
+      MessageBox.Show("Bitte eine ganze Zahl eingeben.", "Ungültige Eingabe");
+    }
 
     // TODO 2: if/else-Kette für Noten
     //         90-100 → Note 6 / "Sehr gut"
